@@ -1,0 +1,32 @@
+confdir /etc/privoxy
+logdir /var/log/privoxy
+actionsfile match-all.action
+actionsfile default.action
+actionsfile user.action
+filterfile default.filter
+filterfile user.filter
+logfile privoxy.log
+listen-address :8118
+toggle 1
+enable-remote-toggle 0
+enable-remote-http-toggle 0
+enable-edit-actions 0
+enforce-blocks 0
+buffer-limit 4096
+enable-proxy-authentication-forwarding 0
+
+# 全局代理
+forward-socks5 / 127.0.0.1:7070 .
+
+# 配置特定路由走代理
+forward / .
+forward-socks5 .*google*.* 127.0.0.1:7070 .
+
+forwarded-connect-retries 0
+accept-intercepted-requests 0
+allow-cgi-request-crunching 0
+split-large-forms 0
+keep-alive-timeout 300
+tolerate-pipelining 1
+default-server-timeout 60
+socket-timeout 300
